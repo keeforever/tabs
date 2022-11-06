@@ -4,26 +4,28 @@ import useFetch from "./useFetch";
 
 // const url='https://course-api.com/react-tabs-project';
 // development purpose
-const url='data.json'
+const url = "data.json";
 
 const App = () => {
-  const [apiData,isLoading,isError]=useFetch(url)
-  const [indexValue, setIndexValue] = useState(0)
+  const [apiData, isLoading, isError] = useFetch(url);
+  const [indexValue, setIndexValue] = useState(0);
 
-  if(isLoading){
-    return(
+  if (isLoading) {
+    return (
       <main>
         <h1 className="alert">Loading...</h1>
       </main>
-    )
+    );
   }
-  if(isError){
-    return(
+
+  if (isError) {
+    return (
       <main>
-        <h1 className="alert" >Error...</h1>
+        <h1 className="alert">Error...</h1>
       </main>
-    )
+    );
   }
+  
   return (
     <main>
       <section className="container">
@@ -33,21 +35,30 @@ const App = () => {
         </header>
         <section className="app-wrapper">
           <nav className="company-container">
-            {
-              apiData.map((profile,index)=>{
-                const {company,id}=profile
-                return (<button key={id} className={ indexValue===index ? ' btn-active':'selection-btn'} onClick={()=>{setIndexValue(index)}}>{company}</button>)
-              })
-            }
+            {apiData.map((profile, index) => {
+              const { company, id } = profile;
+              return (
+                <button
+                  key={id}
+                  className={
+                    indexValue === index ? " btn-active" : "selection-btn"
+                  }
+                  onClick={() => {
+                    setIndexValue(index);
+                  }}
+                >
+                  {company}
+                </button>
+              );
+            })}
           </nav>
           <section className="profile-container">
-          <ProfileInfo profile={apiData[indexValue]}/>
+            <ProfileInfo profile={apiData[indexValue]} />
           </section>
         </section>
       </section>
     </main>
-  )
+  );
+};
 
-}
-
-export default App
+export default App;
